@@ -34,6 +34,7 @@ Do not interpret the existence of a feature in an upstream project as an impleme
 ## Start here
 
 - [New contributor quick start](docs/START_HERE.md)
+- [Complete ordered implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md) — milestones, dependencies, release gates and blockers
 - [Project vision and users](docs/PRODUCT_VISION.md)
 - [Complete feature inventory and acceptance criteria](docs/FEATURE_MATRIX.md)
 - [Reference repositories, licenses and reuse strategy](docs/REFERENCE_REPOSITORIES.md)
