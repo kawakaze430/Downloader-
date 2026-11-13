@@ -1,6 +1,6 @@
 # Downloader — product blueprint
 
-> **Status: planning and repository bootstrap. No downloader application has been implemented or tested in this repository yet.**
+> **Status: planning and M0 engineering audit in progress. The upstream browser-extension candidate builds, but no Downloader application has been imported, implemented or released here yet.**
 
 This is the public collaboration hub for an independently branded, cross-platform **download manager and authorized media-processing platform**. The ambition is to build a credible competitor to established desktop download managers, video downloaders, and browser media tools—not merely a page that accepts a YouTube URL.
 
@@ -22,7 +22,7 @@ We benchmark **4K Video Downloader Plus** for video workflows, **Internet Downlo
 | Area | Current status | First next step |
 | --- | --- | --- |
 | Vision, scope, roadmap | Documented; review requested | Agree on priorities |
-| Repository/license audit | Research candidates listed, not audited | Verify code, licenses, dependencies, activity and security |
+| Repository/license audit | First AB source and extension build audit complete; broader audit open | Continue desktop build, permissions, dependency and NOTICE review |
 | Desktop application | Not implemented | Evaluate AB Download Manager foundation |
 | Browser extension | Not implemented | Evaluate AB Browser Integration foundation |
 | Website/download UI | Not implemented | Evaluate ReClip and design API contracts |
@@ -35,6 +35,7 @@ Do not interpret the existence of a feature in an upstream project as an impleme
 
 - [New contributor quick start](docs/START_HERE.md)
 - [Complete ordered implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md) — milestones, dependencies, release gates and blockers
+- [M0 engineering audit](docs/M0_AUDIT.md) — source pins, actual Chrome build result, reuse matrix, security findings and handoff
 - [Project vision and users](docs/PRODUCT_VISION.md)
 - [Complete feature inventory and acceptance criteria](docs/FEATURE_MATRIX.md)
 - [Reference repositories, licenses and reuse strategy](docs/REFERENCE_REPOSITORIES.md)
