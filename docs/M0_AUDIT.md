@@ -115,3 +115,9 @@ Suggested fix for Codex: audit actual source import and compatible dependency/ty
 > Read AGENTS.md, docs/IMPLEMENTATION_CHECKLIST.md and docs/M0_AUDIT.md. Continue from A03/A05/A06 using the two pinned upstream SHAs above. Reproduce and fix BLK-001 (Gradle network/toolchain) in an authorized environment and investigate BLK-002 (extension TypeScript errors). Do not clone arbitrary HEAD or import upstream source into this project until the owner decides branding/license/base. First report exact desktop build/test commands, dependency-license risks and failures. Flag authenticated loopback/native pairing as mandatory. Update checked items only with evidence. No paid cloud/GPU or public deployments, and no unsupported YouTube/DRM functionality.
 
 **Current product status:** The repo contains documentation and audit evidence, not a runnable Downloader application. Chrome extension build success is evidence about the **upstream candidate**, not our product.
+
+## First original project code: local download fixture
+
+The repository now includes [tools/fixtures/http_fixture.py](../tools/fixtures/http_fixture.py), a dependency-free loopback server with deterministic 16 KiB content, Range/206, unsatisfiable 416, a Range-disabled path and SHA-256 validation; see its [usage guide](../tools/fixtures/README.md). It is **test infrastructure**, not a downloader or imported third-party implementation.
+
+**Verified:** \`python3 -m unittest discover -s tests -v\` — **9 tests PASS** in 0.597 seconds on Linux. This enables cheap M0/M1 local integration tests; actual HTTPS, network interruption simulation, desktop integration and benchmark measurements are still outstanding, so A18/D04 remain unchecked.
