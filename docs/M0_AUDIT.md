@@ -19,36 +19,36 @@ The two directories were shallow-cloned for inspection only. **Neither upstream 
 
 | Check | Environment/command | Observed result |
 | --- | --- | --- |
-| Extension dependency install | Linux, Node 24.22.1, npm 11.9.0; from browser integration clone: \`npm ci --ignore-scripts --no-audit --no-fund\` | **PASS**, 535 packages installed from existing lockfile |
-| Chrome MV3 extension build | Same clone: \`npm run build:chrome\` | **PASS**, Vite built 452 modules and emitted \`dist/chrome/manifest.json\` in 6.87 s |
-| Firefox extension build | Same clone: \`npm run build:firefox\` | **PASS**, Vite built 453 modules and emitted \`dist/firefox/manifest.json\` in 20.09 s; browser install not tested |
-| Standalone TypeScript validation | Same clone: \`npx tsc --noEmit\` | **FAIL**, exit code 2: missing \`~/backend/NativeMessaging\`; manifest \`author\` type mismatch; \`webext-bridge\`/\`type-fest\` generic/type errors. Bundling success does **not** imply type correctness. |
+| Extension dependency install | Linux, Node 24.22.1, npm 11.9.0; from browser integration clone: `npm ci --ignore-scripts --no-audit --no-fund` | **PASS**, 535 packages installed from existing lockfile |
+| Chrome MV3 extension build | Same clone: `npm run build:chrome` | **PASS**, Vite built 452 modules and emitted `dist/chrome/manifest.json` in 6.87 s |
+| Firefox extension build | Same clone: `npm run build:firefox` | **PASS**, Vite built 453 modules and emitted `dist/firefox/manifest.json` in 20.09 s; browser install not tested |
+| Standalone TypeScript validation | Same clone: `npx tsc --noEmit` | **FAIL**, exit code 2: missing `~/backend/NativeMessaging`; manifest `author` type mismatch; `webext-bridge`/`type-fest` generic/type errors. Bundling success does **not** imply type correctness. |
 | Actual Chrome install and desktop handoff | Not attempted; full desktop application not built | **NOT VERIFIED** |
-| Upstream extension automated tests | No \`test\` script in inspected \`package.json\` | **NOT AVAILABLE IN PACKAGE SCRIPTS**; add project tests |
-| Gradle wrapper bootstrap (desktop prerequisite) | Linux, OpenJDK 21.0.13; in desktop clone: \`./gradlew --version\` | **BLOCKED**, exit code 1: wrapper requests \`https://services.gradle.org/distributions/gradle-9.8.0-bin.zip\` but fails \`java.net.SocketException: Network is unreachable\`. No Gradle desktop compile attempted. |
+| Upstream extension automated tests | No `test` script in inspected `package.json` | **NOT AVAILABLE IN PACKAGE SCRIPTS**; add project tests |
+| Gradle wrapper bootstrap (desktop prerequisite) | Linux, OpenJDK 21.0.13; in desktop clone: `./gradlew --version` | **BLOCKED**, exit code 1: wrapper requests `https://services.gradle.org/distributions/gradle-9.8.0-bin.zip` but fails `java.net.SocketException: Network is unreachable`. No Gradle desktop compile attempted. |
 | Desktop unit/integration tests | Tests not run | **NOT VERIFIED** |
 
-Extension build warnings: deprecated Vite CommonJS API, older Browserslist/caniuse-lite data, several deprecated npm packages, and a \`process\` module browser-externalization warning. These are not build failures, but should be tracked in dependency maintenance and a clean-browser smoke test. The independent typecheck failure **is** a quality blocker for adopting this code as-is.
+Extension build warnings: deprecated Vite CommonJS API, older Browserslist/caniuse-lite data, several deprecated npm packages, and a `process` module browser-externalization warning. These are not build failures, but should be tracked in dependency maintenance and a clean-browser smoke test. The independent typecheck failure **is** a quality blocker for adopting this code as-is.
 
 ## What the sources already provide
 
 | Area | Evidence in pinned source | Reuse decision |
 | --- | --- | --- |
-| Download engine | Desktop repo has \`downloader/core\`, \`downloader/monitor\`, \`desktop/app\`, \`shared/app\` modules and Gradle projects | Reuse candidate; validate actual downloading, resume, history and failure handling with controlled fixtures |
-| User-configurable concurrency/retries | \`shared/app/.../DefaultAppSettings.kt\` exposes \`maxConcurrentDownloads = 3\`, \`maxDownloadRetryCount = 3\`, thread count and speed-limit controls | Prefer reuse; tests still needed |
-| Desktop HTTP API | \`integration/server/.../Integration.kt\` binds to \`127.0.0.1\`; \`Endpoints.kt\` has \`POST /add\`, \`POST /ping\`, \`GET /queues\` | Adapt and harden, not greenfield |
-| Native browser messaging | Extension \`src/backend/nativemessaging/NativeMessagingTransport.ts\` and \`src/backend/Backend.ts\` | Reuse, test host registration, origin validation and handoff |
-| Fallback HTTP extension integration | Extension \`src/backend/HttpApi.ts\` invokes localhost API and can attach configured key | Audit auth and origin handling; require secure pairing |
-| Chrome Manifest V3 | Extension \`src/manifest/manifest.chrome.ts\`; emitted \`dist/chrome/manifest.json\` has \`manifest_version: 3\` | Existing MV3 foundation; packaging and browser store review pending |
-| HLS link interception | Extension \`src/linkgrabber/DownloadLinkInterceptor.ts\` matches \`.m3u8\` patterns and labels media type \`hls\` | **Do not build a second HLS detector yet**; test permitted non-DRM fixtures |
+| Download engine | Desktop repo has `downloader/core`, `downloader/monitor`, `desktop/app`, `shared/app` modules and Gradle projects | Reuse candidate; validate actual downloading, resume, history and failure handling with controlled fixtures |
+| User-configurable concurrency/retries | `shared/app/.../DefaultAppSettings.kt` exposes `maxConcurrentDownloads = 3`, `maxDownloadRetryCount = 3`, thread count and speed-limit controls | Prefer reuse; tests still needed |
+| Desktop HTTP API | `integration/server/.../Integration.kt` binds to `127.0.0.1`; `Endpoints.kt` has `POST /add`, `POST /ping`, `GET /queues` | Adapt and harden, not greenfield |
+| Native browser messaging | Extension `src/backend/nativemessaging/NativeMessagingTransport.ts` and `src/backend/Backend.ts` | Reuse, test host registration, origin validation and handoff |
+| Fallback HTTP extension integration | Extension `src/backend/HttpApi.ts` invokes localhost API and can attach configured key | Audit auth and origin handling; require secure pairing |
+| Chrome Manifest V3 | Extension `src/manifest/manifest.chrome.ts`; emitted `dist/chrome/manifest.json` has `manifest_version: 3` | Existing MV3 foundation; packaging and browser store review pending |
+| HLS link interception | Extension `src/linkgrabber/DownloadLinkInterceptor.ts` matches `.m3u8` patterns and labels media type `hls` | **Do not build a second HLS detector yet**; test permitted non-DRM fixtures |
 | Download context menus | Extension source and README describe user-initiated download actions | Prefer reuse; manual UX test pending |
 | Site-specific extractors | No broad verified site-support audit in this pass | No promised support; enforce rights/platform-policy review first |
 
 ## Security findings — must address before release
 
-**SEC-001 (high-priority design blocker): the upstream loopback API permits unauthenticated requests by default.** In \`shared/app/src/commonMain/kotlin/com/abdownloadmanager/shared/storage/appsettings/DefaultAppSettings.kt\`, \`apiEnabled\` defaults to \`true\` while \`apiAuthEnabled\` defaults to \`false\`. The server \`integration/server/.../Endpoints.kt\` explicitly skips API-key validation on some routes when \`apiKeyEnforced\` is false; the app binds to loopback \`127.0.0.1\`. For **our proposed distribution**, make authentication and origin/pairing protections mandatory for downloaded jobs, test malicious webpage requests, and consider disabling HTTP fallback if safe native messaging suffices. Loopback binding alone is not authentication. No exploit is asserted or tested here.
+**SEC-001 (high-priority design blocker): the upstream loopback API permits unauthenticated requests by default.** In `shared/app/src/commonMain/kotlin/com/abdownloadmanager/shared/storage/appsettings/DefaultAppSettings.kt`, `apiEnabled` defaults to `true` while `apiAuthEnabled` defaults to `false`. The server `integration/server/.../Endpoints.kt` explicitly skips API-key validation on some routes when `apiKeyEnforced` is false; the app binds to loopback `127.0.0.1`. For **our proposed distribution**, make authentication and origin/pairing protections mandatory for downloaded jobs, test malicious webpage requests, and consider disabling HTTP fallback if safe native messaging suffices. Loopback binding alone is not authentication. No exploit is asserted or tested here.
 
-**SEC-002 (review before public Chrome distribution): the upstream MV3 manifest requests broad access.** The built extension contains \`host_permissions: ["*://*/*"]\`, matches all HTTP(S) pages with its content script, and asks for \`cookies\`, \`webRequest\`, \`downloads\`, \`nativeMessaging\`, \`tabs\`, \`notifications\`, \`storage\` and \`contextMenus\`. Establish feature-to-permission justification, reduce scope where feasible, test data minimization and verify store compliance. Do not submit the unreviewed upstream package as our product.
+**SEC-002 (review before public Chrome distribution): the upstream MV3 manifest requests broad access.** The built extension contains `host_permissions: ["*://*/*"]`, matches all HTTP(S) pages with its content script, and asks for `cookies`, `webRequest`, `downloads`, `nativeMessaging`, `tabs`, `notifications`, `storage` and `contextMenus`. Establish feature-to-permission justification, reduce scope where feasible, test data minimization and verify store compliance. Do not submit the unreviewed upstream package as our product.
 
 **SEC-003 (user media and URL policy):** Header/cookie forwarding, redirects, private-network requests, DRM, protected sources and platform terms must be reviewed. Only test with content the owner controls or has explicit permission to process. No YouTube extraction demo is a release gate.
 
@@ -120,4 +120,4 @@ Suggested fix for Codex: audit actual source import and compatible dependency/ty
 
 The repository now includes [tools/fixtures/http_fixture.py](../tools/fixtures/http_fixture.py), a dependency-free loopback server with deterministic 16 KiB content, Range/206, unsatisfiable 416, a Range-disabled path and SHA-256 validation; see its [usage guide](../tools/fixtures/README.md). It is **test infrastructure**, not a downloader or imported third-party implementation.
 
-**Verified:** \`python3 -m unittest discover -s tests -v\` — **9 tests PASS** in 0.597 seconds on Linux. This enables cheap M0/M1 local integration tests; actual HTTPS, network interruption simulation, desktop integration and benchmark measurements are still outstanding, so A18/D04 remain unchecked.
+**Verified:** `python3 -m unittest discover -s tests -v` — **9 tests PASS** in 0.597 seconds on Linux. This enables cheap M0/M1 local integration tests; actual HTTPS, network interruption simulation, desktop integration and benchmark measurements are still outstanding, so A18/D04 remain unchecked.
