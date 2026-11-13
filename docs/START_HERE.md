@@ -7,11 +7,12 @@
 1. [README](../README.md) — overview and current implementation status.
 2. [Product vision](PRODUCT_VISION.md) — users, competition and product boundaries.
 3. [Feature matrix](FEATURE_MATRIX.md) — exact capabilities, priority and acceptance.
-4. [Architecture](ARCHITECTURE.md) — intended components and interaction.
-5. [Roadmap](ROADMAP.md) — what to build first.
-6. [Reference projects](REFERENCE_REPOSITORIES.md) — what to evaluate and reuse.
-7. [Legal/security](LEGAL_SECURITY.md) — non-negotiable safeguards.
-8. [Codex workflow](CODEX_WORKFLOW.md) — budget-conscious AI implementation.
+4. [Ordered implementation checklist](IMPLEMENTATION_CHECKLIST.md) — exact task order and stage gates.
+5. [Architecture](ARCHITECTURE.md) — intended components and interaction.
+6. [Roadmap](ROADMAP.md) — what to build first.
+7. [Reference projects](REFERENCE_REPOSITORIES.md) — what to evaluate and reuse.
+8. [Legal/security](LEGAL_SECURITY.md) — non-negotiable safeguards.
+9. [Codex workflow](CODEX_WORKFLOW.md) — budget-conscious AI implementation.
 
 ## First contribution: repository audit
 
