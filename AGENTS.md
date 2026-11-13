@@ -45,7 +45,7 @@ If sources disagree, flag the conflict and request a decision. Do not invent req
 
 ## Project maturity
 
-As of the initial documentation commit there is **no application implementation** here. A documented upstream feature is **not** an implemented local feature. Do not mark any item Complete until tested in this repository.
+As of the first [M0 audit](docs/M0_AUDIT.md) there is **no application implementation** here. The pinned upstream Chrome extension builds, but no product runtime was imported or tested end to end. A documented upstream feature is **not** an implemented local feature. Do not mark any item Complete until the defined evidence is recorded.
 
 ## Suggested first deliverables
 
