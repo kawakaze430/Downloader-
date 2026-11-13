@@ -34,7 +34,7 @@
 - [ ] A06: Run upstream tests; classify pass/fail/blocked and investigate critical failures.
 - [x] A07: Pin exact upstream commit SHA/tag for [AB Browser Integration](https://github.com/amir1376/ab-download-manager-browser-integration) — [audit](M0_AUDIT.md) pins \`bf6811dd8a3ee2b47b94d70e13c2c7e70be7be05\`.
 - [ ] A08: Audit extension permissions, Manifest V3 compatibility, browser store restrictions and native messaging/localhost security.
-- [ ] A09: Build extension packages and run available tests; record evidence — Chrome MV3 build PASS; no test script provided, Firefox build and real-browser installation remain unverified. See [audit](M0_AUDIT.md).
+- [ ] A09: Build extension packages and run available tests; record evidence — Chrome MV3 and Firefox bundler builds PASS; standalone \`tsc --noEmit\` FAIL; browser installation and package verification remain. See [audit](M0_AUDIT.md), [blocker #5](https://github.com/rejoansardar620-lang/Downloader-/issues/5).
 - [ ] A10: Validate the existing desktop-to-extension protocol, or document a safe adaptation strategy.
 
 ### 1B. Media, website and alternatives
@@ -46,7 +46,7 @@
 - [ ] A15: Audit yt-dlp and bundled license requirements for **optional** use on authorized sources only.
 - [ ] A16: Study Gopeed, Motrix/aria2, Cobalt, MeTube and Tube Archivist for **feature ideas only**, unless their source license is explicitly approved.
 - [ ] A17: Create a dependency/license/SBOM risk register with exact source commits and NOTICE obligations.
-- [ ] A18: Benchmark baseline binaries with controlled legal fixtures; record CPU/RAM, resume reliability and integrity rather than marketing speed claims.
+- [ ] A18: Benchmark baseline binaries with controlled legal fixtures; record CPU/RAM, resume reliability and integrity rather than marketing speed claims — initial [loopback HTTP test fixture](../tools/fixtures/README.md) created, 9 local tests PASS; app benchmark not started.
 - [ ] A19: Produce a **build vs reuse matrix** for every P0/P1 feature, including cost/risk of integration.
 - [ ] A20: Compare one-core/one-extension architecture to greenfield rewrite. Recommend a single base with evidence.
 - [ ] A21: Update DECISIONS.md and FEATURE_MATRIX.md with **verified**, not presumed, results.
@@ -58,7 +58,7 @@
 - [ ] D01: Import or integrate only approved, pinned upstream source and preserve attribution/NOTICE.
 - [ ] D02: Create the maintainable repository/module structure without breaking upstream history or tests.
 - [ ] D03: Establish hermetic/reproducible developer environment and build scripts.
-- [ ] D04: Add small, explicitly redistributable HTTPS fixtures (including Range-capable and Range-disabled servers).
+- [ ] D04: Add small, explicitly redistributable HTTPS fixtures (including Range-capable and Range-disabled servers) — original [HTTP loopback fixture](../tools/fixtures/README.md) ready, HTTPS variant and app integration pending.
 - [ ] D05: Implement/verify direct HTTPS download to user-approved local directory.
 - [ ] D06: Show real bytes, progress, unknown-length support, speed and errors.
 - [ ] D07: Implement/verify pause/resume where HTTP Range is supported; safe restart otherwise.
@@ -173,8 +173,8 @@ Mark the task **BLOCKED** in the issue or PR. Do not mark blocked work complete;
 | Milestone | State | Evidence |
 | --- | --- | --- |
 | G: governance | PARTIAL | Initial documents exist; product license/name require owner decision |
-| M0: repo/architecture/license audit | IN PROGRESS | [First audit](M0_AUDIT.md): both source commits pinned, upstream Chrome MV3 build PASS; desktop/tests/license work remains |
-| M1: desktop runtime | NOT STARTED | No application source imported |
+| M0: repo/architecture/license audit | IN PROGRESS | [First audit](M0_AUDIT.md): two source pins, Chrome and Firefox bundler builds PASS, local 9-test fixture PASS; Gradle bootstrap and extension types BLOCKED |
+| M1: desktop runtime | NOT STARTED | No application source imported; only a preparatory HTTP fixture exists |
 | M2: browser handoff | NOT STARTED | No extension source imported |
 | M3: media processing | NOT STARTED | No FFmpeg integration |
 | M4: website | NOT STARTED | No website implementation |
