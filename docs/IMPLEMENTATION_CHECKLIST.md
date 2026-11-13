@@ -2,7 +2,7 @@
 
 **Project:** Downloader — independently branded desktop-first download manager, browser companion and authorized media-processing product.
 
-**Last checked:** 13 November 2026.
+**Last checked:** 13 November 2026. See the [first engineering audit](M0_AUDIT.md) for exact pins, build evidence, security findings and continuation instructions.
 
 **Status rule:** Checked items have evidence in this repository or a linked issue/PR. All other items are **not verified**. A feature present in an upstream repository is not yet implemented here.
 
@@ -26,15 +26,15 @@
 
 ### 1A. Desktop and extension foundations
 
-- [ ] A01: Pin exact upstream commit SHA/tag for [AB Download Manager](https://github.com/amir1376/ab-download-manager).
+- [x] A01: Pin exact upstream commit SHA/tag for [AB Download Manager](https://github.com/amir1376/ab-download-manager) — [audit](M0_AUDIT.md) pins \`68f0ea6e8ba5cbeb02c92342cd3bf7475378ae68\`.
 - [ ] A02: Inspect desktop source modules, build scripts, supported OS matrix and configuration.
 - [ ] A03: Audit Apache-2.0 obligations and all transitive dependencies, including bundled native tools.
 - [ ] A04: Determine existing download features by **source + tests**: D01–D12.
 - [ ] A05: Build AB desktop in an isolated environment; record JDK, Gradle command, OS and actual result.
 - [ ] A06: Run upstream tests; classify pass/fail/blocked and investigate critical failures.
-- [ ] A07: Pin exact upstream commit SHA/tag for [AB Browser Integration](https://github.com/amir1376/ab-download-manager-browser-integration).
+- [x] A07: Pin exact upstream commit SHA/tag for [AB Browser Integration](https://github.com/amir1376/ab-download-manager-browser-integration) — [audit](M0_AUDIT.md) pins \`bf6811dd8a3ee2b47b94d70e13c2c7e70be7be05\`.
 - [ ] A08: Audit extension permissions, Manifest V3 compatibility, browser store restrictions and native messaging/localhost security.
-- [ ] A09: Build extension packages and run available tests; record evidence.
+- [ ] A09: Build extension packages and run available tests; record evidence — Chrome MV3 build PASS; no test script provided, Firefox build and real-browser installation remain unverified. See [audit](M0_AUDIT.md).
 - [ ] A10: Validate the existing desktop-to-extension protocol, or document a safe adaptation strategy.
 
 ### 1B. Media, website and alternatives
@@ -173,7 +173,7 @@ Mark the task **BLOCKED** in the issue or PR. Do not mark blocked work complete;
 | Milestone | State | Evidence |
 | --- | --- | --- |
 | G: governance | PARTIAL | Initial documents exist; product license/name require owner decision |
-| M0: repo/architecture/license audit | NOT STARTED | Audit issues created; upstream builds not yet verified |
+| M0: repo/architecture/license audit | IN PROGRESS | [First audit](M0_AUDIT.md): both source commits pinned, upstream Chrome MV3 build PASS; desktop/tests/license work remains |
 | M1: desktop runtime | NOT STARTED | No application source imported |
 | M2: browser handoff | NOT STARTED | No extension source imported |
 | M3: media processing | NOT STARTED | No FFmpeg integration |
@@ -181,4 +181,4 @@ Mark the task **BLOCKED** in the issue or PR. Do not mark blocked work complete;
 | M5: production release | NOT STARTED | No CI/installers |
 | M6: expansion | NOT STARTED | Backlog only |
 
-**Next action:** Start A01–A10 as an audit milestone. Do not rewrite the desktop/extension until the audit results are reviewed.
+**Next action:** Continue A03–A06 and A08/A10, then A11–A21. Resolve owner decisions G03–G06 before importing/rewriting the desktop or extension.
