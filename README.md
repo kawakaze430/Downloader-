@@ -36,6 +36,7 @@ Do not interpret the existence of a feature in an upstream project as an impleme
 - [New contributor quick start](docs/START_HERE.md)
 - [Complete ordered implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md) — milestones, dependencies, release gates and blockers
 - [M0 engineering audit](docs/M0_AUDIT.md) — source pins, actual Chrome build result, reuse matrix, security findings and handoff
+- [Local direct-download fixture](tools/fixtures/README.md) — original dependency-free Range/HTTP test server; 9 passing tests, no paid network calls
 - [Project vision and users](docs/PRODUCT_VISION.md)
 - [Complete feature inventory and acceptance criteria](docs/FEATURE_MATRIX.md)
 - [Reference repositories, licenses and reuse strategy](docs/REFERENCE_REPOSITORIES.md)
