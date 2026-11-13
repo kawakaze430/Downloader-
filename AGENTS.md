@@ -6,7 +6,7 @@ You are working on **Downloader**, a planned desktop-first download manager, bro
 
 1. [Legal and security requirements](docs/LEGAL_SECURITY.md).
 2. [Decisions and unresolved owner choices](docs/DECISIONS.md).
-3. [Product vision](docs/PRODUCT_VISION.md) and [feature matrix](docs/FEATURE_MATRIX.md).
+3. [Ordered implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md), [product vision](docs/PRODUCT_VISION.md) and [feature matrix](docs/FEATURE_MATRIX.md).
 4. [Architecture](docs/ARCHITECTURE.md) and [roadmap](docs/ROADMAP.md).
 5. Existing source files, tests and upstream documentation once code is imported.
 
