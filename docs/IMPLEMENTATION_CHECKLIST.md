@@ -26,15 +26,15 @@
 
 ### 1A. Desktop and extension foundations
 
-- [x] A01: Pin exact upstream commit SHA/tag for [AB Download Manager](https://github.com/amir1376/ab-download-manager) — [audit](M0_AUDIT.md) pins \`68f0ea6e8ba5cbeb02c92342cd3bf7475378ae68\`.
+- [x] A01: Pin exact upstream commit SHA/tag for [AB Download Manager](https://github.com/amir1376/ab-download-manager) — [audit](M0_AUDIT.md) pins `68f0ea6e8ba5cbeb02c92342cd3bf7475378ae68`.
 - [ ] A02: Inspect desktop source modules, build scripts, supported OS matrix and configuration.
 - [ ] A03: Audit Apache-2.0 obligations and all transitive dependencies, including bundled native tools.
 - [ ] A04: Determine existing download features by **source + tests**: D01–D12.
 - [ ] A05: Build AB desktop in an isolated environment; record JDK, Gradle command, OS and actual result.
 - [ ] A06: Run upstream tests; classify pass/fail/blocked and investigate critical failures.
-- [x] A07: Pin exact upstream commit SHA/tag for [AB Browser Integration](https://github.com/amir1376/ab-download-manager-browser-integration) — [audit](M0_AUDIT.md) pins \`bf6811dd8a3ee2b47b94d70e13c2c7e70be7be05\`.
+- [x] A07: Pin exact upstream commit SHA/tag for [AB Browser Integration](https://github.com/amir1376/ab-download-manager-browser-integration) — [audit](M0_AUDIT.md) pins `bf6811dd8a3ee2b47b94d70e13c2c7e70be7be05`.
 - [ ] A08: Audit extension permissions, Manifest V3 compatibility, browser store restrictions and native messaging/localhost security.
-- [ ] A09: Build extension packages and run available tests; record evidence — Chrome MV3 and Firefox bundler builds PASS; standalone \`tsc --noEmit\` FAIL; browser installation and package verification remain. See [audit](M0_AUDIT.md), [blocker #5](https://github.com/rejoansardar620-lang/Downloader-/issues/5).
+- [ ] A09: Build extension packages and run available tests; record evidence — Chrome MV3 and Firefox bundler builds PASS; standalone `tsc --noEmit` FAIL; browser installation and package verification remain. See [audit](M0_AUDIT.md), [blocker #5](https://github.com/rejoansardar620-lang/Downloader-/issues/5).
 - [ ] A10: Validate the existing desktop-to-extension protocol, or document a safe adaptation strategy.
 
 ### 1B. Media, website and alternatives
