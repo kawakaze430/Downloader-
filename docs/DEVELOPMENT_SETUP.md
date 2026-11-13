@@ -51,7 +51,7 @@ python3 -m unittest discover -s tests -v
 python3 -m tools.fixtures.http_fixture --port 8765
 ~~~
 
-Use \`http://127.0.0.1:8765/file.bin\` for Range-aware tests and \`/no-range.bin\` to test safe full restart. The fixture has 9 passing unit/integration tests. It is not yet an HTTPS endpoint and no desktop downloader has consumed it; the following end-to-end test remains proposed.
+Use `http://127.0.0.1:8765/file.bin` for Range-aware tests and `/no-range.bin` to test safe full restart. The fixture has 9 passing unit/integration tests. It is not yet an HTTPS endpoint and no desktop downloader has consumed it; the following end-to-end test remains proposed.
 
 1. Serve a small openly redistributable test file from a controlled HTTPS endpoint that supports Range requests.
 2. Download to a user-selected temporary directory.
