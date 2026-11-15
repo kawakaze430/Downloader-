@@ -5,9 +5,9 @@ This records preferences, **not immutable architecture**. Each decision must be 
 | ID | Decision | Status | Rationale / next action |
 | --- | --- | --- | --- |
 | ADR-001 | Desktop-first, local-first product with web + browser companions | Proposed | Strong baseline for download reliability and reduced server cost |
-| ADR-002 | AB Download Manager as primary desktop candidate | Proposed, audit required | Apache-2.0 application with existing queues/scheduler and browser ecosystem |
-| ADR-003 | AB Browser Integration as first extension candidate | Proposed, audit required | Existing integration with AB; avoid building handoff twice |
-| ADR-004 | ReClip as website candidate | Proposed, audit required | MIT, small Flask/JS web base; web-to-desktop API is not yet built |
+| ADR-002 | AB Download Manager as primary desktop candidate | **Recommended after source triage; owner approval pending** | At pinned 68f0ea6, existing Kotlin queue/part DB and native host; Gradle/JDK 25 build and full dependency review unresolved |
+| ADR-003 | AB Browser Integration as first extension candidate | **Recommended after source triage; owner approval pending** | At pinned bf6811d, paired with AB; Chrome/Firefox bundles PASS but TypeScript checks FAIL and bridge requires security hardening |
+| ADR-004 | ReClip as website candidate | **Reference only; adoption deferred** | MIT Flask UI patterns useful; arbitrary URL processing without sufficient evident SSRF, quota, authentication and persistence safeguards blocks hosted adoption |
 | ADR-005 | MediaGrabber/HLS Downloader as selective additions | Proposed | Review only components needed for permitted media formats |
 | ADR-006 | FFmpeg for media conversion | Proposed | Established tool, but distribution/configuration licensing varies |
 | ADR-007 | yt-dlp as optional restricted connector | Proposed | No guarantee of site availability or platform permission |
@@ -34,3 +34,5 @@ Revisit when:
 ~~~
 
 Changes to these decisions should be made via an issue or PR with explicit reasoning and review. Avoid committing to a framework because it appears in an example diagram.
+
+**Evidence (15 November 2026):** The [17-project source/reuse matrix](REUSE_DECISION_MATRIX.md), [M0 audit](M0_AUDIT.md) and [build-start plan](BUILD_START_PLAN.md) document the rationale. These are **recommendations, not owner approvals**. Apache-2.0 root license declarations do not replace transitive dependency, NOTICE, asset, distribution and trademark reviews. Do not copy the upstream application code until the governance gate is recorded.

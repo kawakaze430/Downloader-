@@ -1,8 +1,10 @@
 # M0 audit log — first engineering pass
 
-**Date:** 13 November 2026  
-**Status:** IN PROGRESS — source inspection and Chrome production build complete; no user-facing Downloader application has been imported or released.  
-**Scope of this pass:** AB Download Manager desktop and its official browser integration. Other candidates and dependency-level licensing require subsequent passes.
+**Initial pass:** 13 November 2026. **Follow-up:** 15 November 2026.
+
+**Status:** IN PROGRESS — 17 study repositories triaged at pinned commits, both upstream extension bundles build, local Python fixture tests pass. No user-facing Downloader application has been imported or released.
+
+**Scope:** In-depth initial source audit of AB desktop/extension, targeted source investigation of 15 additional candidates, reproducible build probes, and original test fixture work. Full dependency licensing and third-party binary verification remain open.
 
 This log distinguishes **observed source/build evidence** from proposed feature work. It is intended to let a new developer or Codex agent resume without spending time rebuilding features upstream already supplies.
 
@@ -120,4 +122,35 @@ Suggested fix for Codex: audit actual source import and compatible dependency/ty
 
 The repository now includes [tools/fixtures/http_fixture.py](../tools/fixtures/http_fixture.py), a dependency-free loopback server with deterministic 16 KiB content, Range/206, unsatisfiable 416, a Range-disabled path and SHA-256 validation; see its [usage guide](../tools/fixtures/README.md). It is **test infrastructure**, not a downloader or imported third-party implementation.
 
-**Verified:** `python3 -m unittest discover -s tests -v` — **9 tests PASS** in 0.597 seconds on Linux. This enables cheap M0/M1 local integration tests; actual HTTPS, network interruption simulation, desktop integration and benchmark measurements are still outstanding, so A18/D04 remain unchecked.
+**Initial baseline (13 November):** `python3 -m unittest discover -s tests -v` — **9 tests PASS** in 0.597 seconds on Linux. The fixture has since been extended; see the follow-up evidence below. Neither the fixture nor an upstream extension bundle is a usable desktop application.
+
+## 15 November 2026 follow-up: source triage, security and original code
+
+The [17-repository matrix](REUSE_DECISION_MATRIX.md) records an exact observed default-branch commit, build/source locations, root license declarations and an individual decision for each candidate. The two **conditional** primary recommendations remain AB Download Manager (68f0ea6e8ba5cbeb02c92342cd3bf7475378ae68) and its AB Browser Integration companion (bf6811dd8a3ee2b47b94d70e13c2c7e70be7be05). There is **no authorization or verified app build** yet. The [build-start plan](BUILD_START_PLAN.md) defines the incremental architecture, M0/M1/M2 gates and exact approvals needed.
+
+### Reproducible follow-up commands and outcomes
+
+| Location | Command / source observation | Result |
+| --- | --- | --- |
+| Downloader repo | `python3 -m unittest discover -s tests -v` | **PASS: 14/14** deterministic fixture tests, approximately 1.12 s, Python 3.12.14 on Linux |
+| Downloader repo | `python3 -m compileall -q tools tests` | **PASS** |
+| AB extension pinned checkout | `npm ci --ignore-scripts --no-audit --no-fund` | **PASS** with lockfile; 535 installed packages |
+| AB extension pinned checkout | `npm run build:chrome` | **PASS**, Vite 452 modules, approximately 2.64 s |
+| AB extension pinned checkout | `npm run build:firefox` | **PASS**, Vite 453 modules, approximately 2.64 s |
+| AB extension pinned checkout | `./node_modules/.bin/tsc --noEmit` | **FAIL**, TS2307 missing NativeMessaging import, TS2322 manifest author mismatch, TS generic/type-fest issues (issue #5) |
+| AB extension pinned checkout | `npm audit --omit=dev --audit-level=moderate --json` | **FAIL (exit 1): two high advisories**, lodash GHSA-r5fr-rjxr-66jc and zod range <4.6.6, from npm audit output; assess affected runtime paths and lockfile remediation in an approved fork. An advisory is not proof of exploitability. |
+| AB desktop pinned checkout | `./gradlew --version` | **BLOCKED**: official Gradle 9.8 binary download encounters `java.net.SocketException: Network is unreachable` (issue #4); no desktop compile/test run |
+| AB desktop pinned source | gradle/wrapper/gradle-wrapper.properties and gradle.properties | Wrapper **9.8.0**, `jvm.toolchain=25`; current probe JDK 21 does not satisfy requested toolchain. Validate available JDK 25 distribution in permitted environment. |
+
+The original fixture now supports optional TLS with a caller-supplied certificate, verified HTTPS requests (including rejection of an untrusted certificate), matching/mismatched If-Range ETags, relative redirect, intentionally truncated response, and denial of excessively long Range offsets. It binds only to 127.0.0.1 and does not fetch user-provided URLs or disable certificate validation. A small [fixture-only GitHub Actions workflow](../.github/workflows/fixture-tests.yml) is added with pinned checkout/setup-python actions and read-only permissions; **the workflow is not yet proven by an observed hosted GitHub run**. M1 runtime integration and benchmarks remain undone.
+
+### Security decisions to preserve
+
+- **High:** upstream AB `apiEnabled=true` but `apiAuthEnabled=false` by default; integration `/add` may skip key enforcement and can feed silent-import flow. The local bridge must authenticate and authorize job-creating requests; loopback binding does not suffice. Native messaging is preferred for the first slice (issue #6).
+- **High:** extension's broad `*://*/*`, cookies, webRequest, nativeMessaging and content-script access require privacy minimization and negative-origin tests before packaging.
+- **Supply chain:** two high production-dependency advisories appeared in a pinned upstream npm audit. Preserve evidence and evaluate targeted upgrades without bypassing TypeScript checks.
+- **Website:** ReClip's Flask backend runs submitted URLs via yt-dlp and keeps jobs in process memory. No adequate default hosted SSRF, authentication, quota or persistence guarantees were evident in inspected code; **reference its UX only**, pending an original safe design.
+- **Licensing:** MediaGrabber's bundled Windows FFmpeg is identified as GPLv3 in its third-party notices; FFmpeg's LGPL/GPL behavior is build dependent. Gopeed, aria2, Cobalt, MeTube, Pinchflat, Tube Archivist and other GPL/AGPL examples are not silently importable into an unlicensed product.
+- **Policy:** support user-owned/expressly permitted downloads, review browser-store requirements, and reject DRM/protected source circumvention. Do not promise general YouTube integration.
+
+**Open work:** exact transitive SBOM and NOTICE inventory, full desktop Java 25 + Gradle boot/build/tests, extension typecheck repair in an owner-approved fork, authentic Chrome/native handoff, user decisions G03–G06/G08, and platform policy review. All remain unchecked in the [implementation checklist](IMPLEMENTATION_CHECKLIST.md).

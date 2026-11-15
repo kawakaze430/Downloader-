@@ -13,6 +13,8 @@
 7. [Reference projects](REFERENCE_REPOSITORIES.md) — what to evaluate and reuse.
 8. [Legal/security](LEGAL_SECURITY.md) — non-negotiable safeguards.
 9. [Codex workflow](CODEX_WORKFLOW.md) — budget-conscious AI implementation.
+10. [Verified 17-source research matrix](REUSE_DECISION_MATRIX.md) — exactly two recommended foundations; all commit pins and licensing warnings.
+11. [Build-start and security execution plan](BUILD_START_PLAN.md) — source inventory, M0 blockers, staged M1/M2 acceptance gates.
 
 ## First contribution: repository audit
 
@@ -27,6 +29,8 @@
 - Recommend one base app and extension with a small working integration target.
 
 Use the issue template. Put audit results in a PR; avoid copying upstream trees before approval.
+
+**Current M0 evidence (15 November 2026):** The 17-source triage and two-foundation recommendation have been documented; the original Python HTTP/HTTPS fixture has **14 passing local tests** and a small fixture-only CI workflow. The upstream Chrome/Firefox bundles compile but fail independent TypeScript checks; desktop Gradle bootstrap is network-blocked. See [M0_AUDIT.md](M0_AUDIT.md). These results do not constitute a working downloader.
 
 ## Owner decisions needed before substantial code imports
 

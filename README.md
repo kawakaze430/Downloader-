@@ -22,12 +22,12 @@ We benchmark **4K Video Downloader Plus** for video workflows, **Internet Downlo
 | Area | Current status | First next step |
 | --- | --- | --- |
 | Vision, scope, roadmap | Documented; review requested | Agree on priorities |
-| Repository/license audit | First AB source and extension build audit complete; broader audit open | Continue desktop build, permissions, dependency and NOTICE review |
+| Repository/license audit | 17-repository source triage complete; dependency-level audit open | Unblock desktop build; review permissions, SBOM and NOTICE obligations |
 | Desktop application | Not implemented | Evaluate AB Download Manager foundation |
 | Browser extension | Not implemented | Evaluate AB Browser Integration foundation |
-| Website/download UI | Not implemented | Evaluate ReClip and design API contracts |
+| Website/download UI | Not implemented | Design original UI; ReClip is a UX reference only pending SSRF/security review |
 | Media processing | Not implemented | Verify FFmpeg integration and permitted-source policy |
-| Automated tests, CI and releases | Not implemented | Create audit baseline and first testable vertical slice |
+| Automated tests, CI and releases | 14 local fixture tests pass; minimal PR/manual fixture CI added; no app CI or releases | Verify GitHub workflow and develop product test gates |
 
 Do not interpret the existence of a feature in an upstream project as an implemented feature **here**.
 
@@ -36,7 +36,9 @@ Do not interpret the existence of a feature in an upstream project as an impleme
 - [New contributor quick start](docs/START_HERE.md)
 - [Complete ordered implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md) — milestones, dependencies, release gates and blockers
 - [M0 engineering audit](docs/M0_AUDIT.md) — source pins, actual Chrome build result, reuse matrix, security findings and handoff
-- [Local direct-download fixture](tools/fixtures/README.md) — original dependency-free Range/HTTP test server; 9 passing tests, no paid network calls
+- [Verified 17-repository reuse matrix](docs/REUSE_DECISION_MATRIX.md) — candidates, licenses, exact source commits and decisions
+- [Build-start engineering plan](docs/BUILD_START_PLAN.md) — original code inventory, threat model, architecture and M0/M1/M2 gates
+- [Local direct-download fixture](tools/fixtures/README.md) — original dependency-free HTTP/optional HTTPS test server; 14 passing tests, no paid network calls
 - [Project vision and users](docs/PRODUCT_VISION.md)
 - [Complete feature inventory and acceptance criteria](docs/FEATURE_MATRIX.md)
 - [Reference repositories, licenses and reuse strategy](docs/REFERENCE_REPOSITORIES.md)
@@ -57,7 +59,7 @@ Do not interpret the existence of a feature in an upstream project as an impleme
 | --- | --- | --- |
 | Main desktop starting point | [AB Download Manager](https://github.com/amir1376/ab-download-manager) | Mature open-source download management; Apache-2.0 |
 | Browser companion | [AB browser integration](https://github.com/amir1376/ab-download-manager-browser-integration) | Already works with AB application; Apache-2.0 |
-| Web-download experience | [ReClip](https://github.com/averygan/reclip) | Small, approachable Flask/JS media UI; MIT |
+| Web-download experience (reference only) | [ReClip](https://github.com/averygan/reclip) | MIT Flask/JS UX patterns; arbitrary remote URL handling is not a secure foundation for a hosted service |
 | Media discovery | [MediaGrabber](https://github.com/miroshArtem/MediaGrabber) and [HLS Downloader](https://github.com/puemos/hls-downloader) | Extension architecture and non-DRM streams; both MIT |
 | Media operations | [FFmpeg](https://github.com/FFmpeg/FFmpeg) | Conversion/remuxing with build-dependent licenses |
 | Optional extraction | [yt-dlp](https://github.com/yt-dlp/yt-dlp) | For sources and uses that permit downloading; check bundled licenses |
@@ -79,5 +81,5 @@ The first milestone is an **evidence-backed repository and license audit**, not 
 ## Links and scope
 
 - Project: https://github.com/rejoansardar620-lang/Downloader-
-- Research snapshot: **13 November 2026**; upstream capabilities and licenses must be rechecked before adoption.
+- Research snapshot: **15 November 2026**; upstream capabilities and licenses must be rechecked before adoption.
 - This repository does not contain source code from any reference project at this stage.

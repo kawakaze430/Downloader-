@@ -1,6 +1,6 @@
 # Master feature inventory and acceptance criteria
 
-This is the feature backlog for the intended competitive product. **All items are NOT IMPLEMENTED in this repository as of 13 November 2026.** A named upstream library is a candidate to evaluate, **not proof** that our product implements the feature.
+This is the feature backlog for the intended competitive product. **All application features listed below remain NOT IMPLEMENTED in this repository as of 15 November 2026.** Separately, the repo includes an original deterministic HTTP/HTTPS fixture with 14 passing tests and a fixture-only CI workflow. Neither makes the app features complete. A named upstream library is a candidate to evaluate, **not proof** that our product implements the feature. See the [17-source evidence matrix](REUSE_DECISION_MATRIX.md) and [M0 execution report](BUILD_START_PLAN.md).
 
 Legend: **P0** required for first beta; **P1** important for a competitive 1.x product; **P2** later differentiation. Acceptance criteria below are proposed and may be refined after audit.
 
@@ -60,8 +60,8 @@ Legend: **P0** required for first beta; **P1** important for a competitive 1.x p
 | ID | Feature | Priority | Candidate | Acceptance target |
 | --- | --- | --- | --- | --- |
 | W01 | Public product/installation website | P1 | New site / existing marketing pattern | Accessible and mobile responsive |
-| W02 | Uploaded media conversion | P1 | ReClip/FFmpeg | Size/format limits, authenticated cleanup and valid output |
-| W03 | Permitted direct URL job UI | P1 | ReClip | SSRF-safe URL checks, explicit quotas, progress |
+| W02 | Uploaded media conversion | P1 | Original hardened service/FFmpeg; ReClip UX reference | Size/format limits, authenticated cleanup and valid output |
+| W03 | Permitted direct URL job UI | P1 | Original hardened design; ReClip UX reference | SSRF-safe URL checks, explicit quotas, progress |
 | W04 | Cloud/server-side queue | P2 | Redis/worker candidate | Bounded resource use, cancellation and TTL cleanup |
 | W05 | User accounts and billing | P2 | Not selected | Only after privacy policy and business model approval |
 | P01 | Reproducible developer builds | P0 | AB build + extension tooling | Fresh environment builds without private dependencies |

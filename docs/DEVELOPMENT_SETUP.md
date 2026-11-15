@@ -1,6 +1,6 @@
 # Development and verification guide
 
-**As of the bootstrap commit there is no application to run here.** This guide describes how to start an audit, how to prepare Codex Cloud, and how to verify the first implementation. It must be updated when a base has been selected and imported.
+**As of the 15 November 2026 M0 audit, there is no user-facing application to run here.** The original HTTP/HTTPS fixture and automated tests are runnable. The upstream candidates are not yet imported.
 
 ## Minimum prerequisites for initial audit
 
@@ -51,7 +51,7 @@ python3 -m unittest discover -s tests -v
 python3 -m tools.fixtures.http_fixture --port 8765
 ~~~
 
-Use `http://127.0.0.1:8765/file.bin` for Range-aware tests and `/no-range.bin` to test safe full restart. The fixture has 9 passing unit/integration tests. It is not yet an HTTPS endpoint and no desktop downloader has consumed it; the following end-to-end test remains proposed.
+Use `http://127.0.0.1:8765/file.bin` for Range-aware tests and `/no-range.bin` to test safe full restart. The fixture has **14 passing tests** covering Range/If-Range, redirects, truncated transfers and certificate-validated HTTPS. It supports optional caller-supplied TLS cert/key (see its own README); no desktop downloader has consumed it. The following desktop-to-browser end-to-end test remains proposed.
 
 1. Serve a small openly redistributable test file from a controlled HTTPS endpoint that supports Range requests.
 2. Download to a user-selected temporary directory.
@@ -79,21 +79,22 @@ Every module should document:
 
 | Stage | Initial check |
 | --- | --- |
- PR | Formatting, static analysis, unit tests, secrets, dependency/license review |
- Integration | Local HTTP test fixture, job lifecycle, cross-origin bridge security |
- Browser | Build Chrome MV3 and smoke-test supported browser |
- Desktop | Linux build + Windows CI build; separate signed release job |
- Release | SBOM, third-party notices, artifacts, hashes, signature/rollback checks |
+| PR (fixture only, implemented) | Python unittest/compileall; pinned GitHub actions, no secrets or external media |
+| PR (future app) | Formatting, static analysis, unit tests, secrets, dependency/license review |
+| Integration (future) | Local HTTP/HTTPS fixture, job lifecycle, cross-origin bridge security |
+| Browser (future) | Build Chrome MV3 and smoke-test supported browser |
+| Desktop (future) | Linux build + Windows CI build; separate signed release job |
+| Release (future) | SBOM, third-party notices, artifacts, hashes, signature/rollback checks |
 
 Use dependency caching and run narrow checks during development. A full multi-OS release build should run at milestone gates, not after every documentation change.
 
 ## Current verification status
 
-- GitHub repository: documentation bootstrap only.
-- Desktop build: **not attempted**.
-- Extension build: **not attempted**.
-- Browser integration: **not attempted**.
+- GitHub repository: planning/docs and original fixture plus initial test workflow; **no application implemented**.
+- Desktop build: **blocked** at Gradle 9.8 bootstrap by release-asset network restriction; upstream source specifies JDK 25 toolchain. See [issue #4](https://github.com/rejoansardar620-lang/Downloader-/issues/4).
+- Extension (isolated upstream clone): **Chrome and Firefox bundle builds PASS**, standalone TypeScript **FAILS**. See [issue #5](https://github.com/rejoansardar620-lang/Downloader-/issues/5).
+- Browser integration: **not attempted end-to-end**; upstream unauthenticated-by-default HTTP API is a release blocker. See [issue #6](https://github.com/rejoansardar620-lang/Downloader-/issues/6).
 - Cloud deployment: **not attempted**.
-- Tests: **not yet present**.
+- Tests: **14/14 local Python fixture tests PASS**; upstream desktop tests not run; new GitHub Actions workflow not yet verified on GitHub.
 
-Do not alter this status until real evidence is available.
+See [BUILD_START_PLAN.md](BUILD_START_PLAN.md) and [REUSE_DECISION_MATRIX.md](REUSE_DECISION_MATRIX.md) before importing or rewriting source.

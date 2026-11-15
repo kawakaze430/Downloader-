@@ -2,7 +2,7 @@
 
 **Project:** Downloader — independently branded desktop-first download manager, browser companion and authorized media-processing product.
 
-**Last checked:** 13 November 2026. See the [first engineering audit](M0_AUDIT.md) for exact pins, build evidence, security findings and continuation instructions.
+**Last checked:** 15 November 2026. See the [updated engineering audit](M0_AUDIT.md), [17-source matrix](REUSE_DECISION_MATRIX.md) and [build-start plan](BUILD_START_PLAN.md) for exact pins, build evidence, security findings and continuation instructions.
 
 **Status rule:** Checked items have evidence in this repository or a linked issue/PR. All other items are **not verified**. A feature present in an upstream repository is not yet implemented here.
 
@@ -46,7 +46,7 @@
 - [ ] A15: Audit yt-dlp and bundled license requirements for **optional** use on authorized sources only.
 - [ ] A16: Study Gopeed, Motrix/aria2, Cobalt, MeTube and Tube Archivist for **feature ideas only**, unless their source license is explicitly approved.
 - [ ] A17: Create a dependency/license/SBOM risk register with exact source commits and NOTICE obligations.
-- [ ] A18: Benchmark baseline binaries with controlled legal fixtures; record CPU/RAM, resume reliability and integrity rather than marketing speed claims — initial [loopback HTTP test fixture](../tools/fixtures/README.md) created, 9 local tests PASS; app benchmark not started.
+- [ ] A18: Benchmark baseline binaries with controlled legal fixtures; record CPU/RAM, resume reliability and integrity rather than marketing speed claims — [HTTP/HTTPS fixture](../tools/fixtures/README.md) has 14 passing local tests, including interruption/redirect/If-Range; **no application benchmark**.
 - [ ] A19: Produce a **build vs reuse matrix** for every P0/P1 feature, including cost/risk of integration.
 - [ ] A20: Compare one-core/one-extension architecture to greenfield rewrite. Recommend a single base with evidence.
 - [ ] A21: Update DECISIONS.md and FEATURE_MATRIX.md with **verified**, not presumed, results.
@@ -58,7 +58,7 @@
 - [ ] D01: Import or integrate only approved, pinned upstream source and preserve attribution/NOTICE.
 - [ ] D02: Create the maintainable repository/module structure without breaking upstream history or tests.
 - [ ] D03: Establish hermetic/reproducible developer environment and build scripts.
-- [ ] D04: Add small, explicitly redistributable HTTPS fixtures (including Range-capable and Range-disabled servers) — original [HTTP loopback fixture](../tools/fixtures/README.md) ready, HTTPS variant and app integration pending.
+- [ ] D04: Add small, explicitly redistributable HTTPS fixtures (including Range-capable and Range-disabled servers) — original [HTTP/optional HTTPS loopback fixture](../tools/fixtures/README.md) and unit tests implemented; full application integration and controlled remote HTTPS validation pending.
 - [ ] D05: Implement/verify direct HTTPS download to user-approved local directory.
 - [ ] D06: Show real bytes, progress, unknown-length support, speed and errors.
 - [ ] D07: Implement/verify pause/resume where HTTP Range is supported; safe restart otherwise.
@@ -173,12 +173,12 @@ Mark the task **BLOCKED** in the issue or PR. Do not mark blocked work complete;
 | Milestone | State | Evidence |
 | --- | --- | --- |
 | G: governance | PARTIAL | Initial documents exist; product license/name require owner decision |
-| M0: repo/architecture/license audit | IN PROGRESS | [First audit](M0_AUDIT.md): two source pins, Chrome and Firefox bundler builds PASS, local 9-test fixture PASS; Gradle bootstrap and extension types BLOCKED |
+| M0: repo/architecture/license audit | IN PROGRESS | [Updated audit](M0_AUDIT.md): 17 source candidates triaged, exactly two foundations recommended, both upstream extension builds PASS, 14 fixture tests PASS; Gradle bootstrap, extension types, transitive SBOM and owner decisions remain BLOCKED |
 | M1: desktop runtime | NOT STARTED | No application source imported; only a preparatory HTTP fixture exists |
 | M2: browser handoff | NOT STARTED | No extension source imported |
 | M3: media processing | NOT STARTED | No FFmpeg integration |
 | M4: website | NOT STARTED | No website implementation |
-| M5: production release | NOT STARTED | No CI/installers |
+| M5: production release | NOT STARTED | Initial fixture-only PR/manual CI exists locally, but no app CI, installers or release pipeline |
 | M6: expansion | NOT STARTED | Backlog only |
 
-**Next action:** Continue A03–A06 and A08/A10, then A11–A21. Resolve owner decisions G03–G06 before importing/rewriting the desktop or extension.
+**Next action:** Unblock A05/A06 with an authorized Gradle 9.8/JDK 25 setup; finish A03 dependency/NOTICE scan and A09 TypeScript repair in an approved upstream fork; verify native protocol security A08/A10. The 17-candidate source triage is documented, but each unchecked audit item still requires its stated full acceptance evidence. Resolve G03–G06 before importing or rewriting desktop/extension source.
