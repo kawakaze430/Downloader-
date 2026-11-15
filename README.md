@@ -40,6 +40,7 @@ Do not interpret the existence of a feature in an upstream project as an impleme
 - [Project vision and users](docs/PRODUCT_VISION.md)
 - [Complete feature inventory and acceptance criteria](docs/FEATURE_MATRIX.md)
 - [Reference repositories, licenses and reuse strategy](docs/REFERENCE_REPOSITORIES.md)
+- [Complete study repository list (TXT)](docs/STUDY_REPOSITORIES.txt) — all 17 previously suggested open-source projects, categories and study order
 - [Proposed system architecture](docs/ARCHITECTURE.md)
 - [Milestones and definition of done](docs/ROADMAP.md)
 - [Competitor benchmarks](docs/COMPETITOR_BENCHMARK.md)
